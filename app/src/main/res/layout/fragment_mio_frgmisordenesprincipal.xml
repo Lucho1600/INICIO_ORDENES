@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey_400"
-    android:layout_margin="@dimen/activity_margin"
+    android:padding="@dimen/activity_margin"
     tools:context=".tendero.Inicio_sesion.ui.Mis_ordenes.mio_frgmisordenesprincipal">
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <Spinner
-                android:id="@+id/mio_mopsrchvwordenarporestado"
+                android:id="@+id/mio_mopspnordenarporestado"
                 android:background="@drawable/outline_spinner"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
@@ -44,7 +44,7 @@
                 android:entries="@array/Filtro_ordenestado" />
 
             <Spinner
-                android:id="@+id/mio_mopsrchvwordenarporfecha"
+                android:id="@+id/mio_mopspnordenarporfecha"
                 android:background="@drawable/outline_spinner"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
@@ -54,206 +54,13 @@
                 android:text="@string/mio_varstrmisordenesprincipal9"
                 android:entries="@array/Filtro_ordenfecha" />
         </LinearLayout>
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/outline_textinputedittext"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/mio_varstrmisordenesprincipal3"
-                    android:textColor="@color/blackPrimary" />
-                <TextView
-                    android:id="@+id/txt_IdOrden"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="00000001"
-                    android:layout_marginLeft="5dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal4"
-                    android:textColor="@color/blackPrimary"
-                    />
+            android:id="@+id/mio_moprclvlistaproductos"
+            >
 
-                <TextView
-                    android:id="@+id/txt_nombrescliente"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Carlos Enrique Quispe"
-                    android:layout_marginLeft="5dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal5"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-                <TextView
-                    android:id="@+id/txt_OrdCreada1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="04/11/2022"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal6"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-
-                <TextView
-                    android:id="@+id/txt_OrdCreada"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="04/11/2022"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:paddingTop="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/mio_moptxtdetalle"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal7"
-                    android:textColor="@color/green_800"/>
-                <TextView
-                    android:id="@+id/mio_moptxtchat"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="90dp"
-                    android:text="@string/mio_varstrmisordenesprincipal8"
-                    android:textColor="@color/green_800"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/outline_textinputedittext"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/mio_varstrmisordenesprincipal3"
-                    android:textColor="@color/blackPrimary" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="00000002"
-                    android:layout_marginLeft="5dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal4"
-                    android:textColor="@color/blackPrimary"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Enrique Armando Casas"
-                    android:layout_marginLeft="5dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal5"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="03/11/2022"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal6"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="03/11/2022"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/blackPrimary"
-                    android:paddingTop="10dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:paddingTop="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mio_varstrmisordenesprincipal7"
-                    android:textColor="@color/green_800"/>
-                <TextView
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="90dp"
-                    android:text="@string/mio_varstrmisordenesprincipal8"
-                    android:textColor="@color/green_800"/>
-            </LinearLayout>
-        </LinearLayout>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </ScrollView>

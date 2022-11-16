@@ -96,12 +96,15 @@
     <string name="mio_varstrmisordenesprincipal8">Chat</string>
 
     <string-array name="Filtro_ordenestado">
-        <item> Mas antiguo</item>
-        <item> Mas Reciente</item>
-        <item> Creado</item>
-        <item> Preparado</item>
-        <item> En reparto</item>
-        <item> Entregado</item>
+        <item>ESTADO</item>
+        <item>SOLICITADO</item>
+        <item>ACEPTADO</item>
+        <item>RECHAZADO</item>
+        <item>EN PREPARACION</item>
+        <item>PREPARADO</item>
+        <item>EN CAMINO</item>
+        <item>ENTREGADO</item>
+        <item>RECLAMADO</item>
     </string-array>
 
     <string-array name="Filtro_ordenfecha">
