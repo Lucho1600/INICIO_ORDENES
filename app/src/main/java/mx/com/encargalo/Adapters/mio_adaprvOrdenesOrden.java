@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -45,10 +46,12 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
     @Override
     public void onBindViewHolder(@NonNull @NotNull mio_adaprvOrdenesOrden.ViewHolder holder, int position) {
 
+
         int idOrden = listaOrdenes.get(position).getIdOrden();
         String odFechaPedido = listaOrdenes.get(position).getOdFechaPedido();
         String perNombreCompleto = listaOrdenes.get(position).getPerNombreCompleto();
         String odEstado = listaOrdenes.get(position).getOdEstado();
+        int idRepartidor = listaOrdenes.get(position).getIdRepartidor();
         holder.idOrden.setText(String.valueOf(idOrden));
         holder.odFechaPedido.setText(odFechaPedido);
         holder.perNombreCompleto.setText(perNombreCompleto);
@@ -61,6 +64,16 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
                 Navigation.findNavController(view).navigate(R.id.nav_misordenesdetallepedido);
             }
         });
+
+        holder.txt_Detalle_Chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(idRepartidor == 0){
+                    Toast.makeText(view.getContext(), "No asigno repartidor "+ String.valueOf(idRepartidor), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
     }
 
 
@@ -70,7 +83,7 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView idOrden, odFechaPedido, perNombreCompleto, odEstado, txt_Detalle;
+        TextView idOrden, odFechaPedido, perNombreCompleto, odEstado, txt_Detalle, txt_Detalle_Chat;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -80,13 +93,18 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
             perNombreCompleto = itemView.findViewById(R.id.mio_mop_txtNombres);
             odEstado = itemView.findViewById(R.id.mio_mop_txtOrdEstado);
             txt_Detalle = itemView.findViewById(R.id.mio_moptxtdetalle);
+            txt_Detalle_Chat = itemView.findViewById(R.id.mio_moptxtdetallechat);
 
         }
     }
 
     public interface SendData {
         void sendInfo(String [] datosOrden);
+
     }
+
+
+
 
 
 

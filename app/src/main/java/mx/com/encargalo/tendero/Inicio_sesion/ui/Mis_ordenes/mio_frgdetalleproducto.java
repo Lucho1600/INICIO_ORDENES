@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,6 +89,15 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
             }
         });
 
+        getParentFragmentManager().setFragmentResultListener("detallesProducto", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull @NotNull String requestKey, @NonNull @NotNull Bundle result) {
+                String idOrden = result.getString("idOrden");
+
+                cargarWebService(idOrden);
+            }
+        });
+
 
 
 
@@ -96,7 +108,7 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
             }
         });
 
-        cargarWebService();
+
 
         ch_selec_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +129,8 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
         return vista;
     }
 
-    private void cargarWebService() {
-        String url = Util.RUTA+"c_detalle_orden_x_id_mis_ordenes.php?id_orden=1";
+    private void cargarWebService(String urlIdOrden) {
+        String url = Util.RUTA+"c_detalle_orden_x_id_mis_ordenes.php?id_orden="+urlIdOrden;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         requestQueue.add(jsonObjectRequest);
     }

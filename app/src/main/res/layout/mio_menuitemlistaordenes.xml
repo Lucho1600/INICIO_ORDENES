@@ -113,6 +113,7 @@
                 android:textColor="@color/green_800" />
 
             <TextView
+                android:id="@+id/mio_moptxtdetallechat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 

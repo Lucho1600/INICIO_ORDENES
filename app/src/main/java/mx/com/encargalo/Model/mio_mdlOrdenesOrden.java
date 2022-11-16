@@ -6,13 +6,23 @@ public class mio_mdlOrdenesOrden {
     private String odFechaPedido;
     private String perNombreCompleto;
     private String odEstado;
+    private int idRepartidor;
 
     public mio_mdlOrdenesOrden () {};
-    public mio_mdlOrdenesOrden(int idOrden, String odFechaPedido, String perNombreCompleto, String odEstado) {
+    public mio_mdlOrdenesOrden(int idOrden, String odFechaPedido, String perNombreCompleto, String odEstado, int idRepartidor) {
         this.idOrden = idOrden;
         this.odFechaPedido = odFechaPedido;
         this.perNombreCompleto = perNombreCompleto;
         this.odEstado = odEstado;
+        this.idRepartidor = idRepartidor;
+    }
+
+    public int getIdRepartidor() {
+        return idRepartidor;
+    }
+
+    public void setIdRepartidor(int idRepartidor) {
+        this.idRepartidor = idRepartidor;
     }
 
     public int getIdOrden() {
