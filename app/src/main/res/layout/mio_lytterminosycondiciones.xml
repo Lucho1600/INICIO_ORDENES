@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    android:background="@drawable/outline_textinputedittext"
+    android:layout_margin="@dimen/activity_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/mio_varstrterminosycondiciones1"
+            android:textColor="@color/blackPrimary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:orientation="vertical">
+        </LinearLayout>
+        <Button
+            android:id="@+id/mio_isbtncerrarterminos"
+            android:layout_width="@dimen/btn_type03_width"
+            android:layout_height="wrap_content"
+            android:background="@drawable/containedbutton_red"
+            android:text="@string/is_varstrcrearunacuenta9"
+            android:textAllCaps="false"
+            android:radius="10dp"/>
+
+    </LinearLayout>
+</LinearLayout>

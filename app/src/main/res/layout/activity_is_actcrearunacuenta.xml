@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity_is_actcrearunacuenta"
+    android:layout_margin="@dimen/activity_margin"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/is_edtnombre"
+        android:layout_width="255dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:text="Juan"
+        android:background="@drawable/outline_textinputedittext"
+        android:gravity="center_horizontal"
+        />
+        <!--        android:text="@string/is_varstrcrearunacuenta1"-->
+
+    <EditText
+        android:id="@+id/is_edtapellido"
+        android:layout_width="255dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:text="Valverde"
+        android:background="@drawable/outline_textinputedittext"
+        android:gravity="center_horizontal"
+        />
+<!--        android:text="@string/is_varstrcrearunacuenta2"-->
+
+
+    <EditText
+        android:id="@+id/is_edtcorreo"
+        android:layout_width="255dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:text="jval@gmail.com"
+        android:background="@drawable/outline_textinputedittext"
+        android:gravity="center_horizontal"
+        />
+<!--        android:text="@string/is_varstrcrearunacuenta3"-->
+
+
+    <Spinner
+        android:id="@+id/is_sptipopersona"
+        android:layout_width="255dp"
+        android:layout_height="42dp"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="16dp"
+        android:text="@string/is_varstrcrearunacuenta4"
+        android:entries="@array/is_varstrcrearunacuenta9"
+        android:background="@drawable/outline_spinner"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+
+            <Spinner
+                android:id="@+id/is_ccspcodigodelpais"
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:spinnerMode="dropdown"
+                android:layout_marginTop="16dp"
+                android:entries="@array/is_qpkitemspinnercodpais"
+                android:background="@drawable/outline_spinner"
+                android:textColor="@color/blackPrimary" />
+
+            <EditText
+                android:id="@+id/is_ccedtnomphone"
+                android:layout_width="178dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="10dp"
+                android:text="957420138"
+                android:textSize="15dp"
+                android:background="@drawable/outline_textinputedittext" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp" >
+            <CheckBox
+                android:id="@+id/is_chkbterminosycondiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+               />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/is_varstrcrearunacuenta7"
+                android:textColor="@color/blue_600"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/is_ispbtnRegistrarse"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/containedbutton_orange"
+            android:text="@string/is_varstrcrearunacuenta8"
+            android:textAllCaps="false"
+            android:textColor="@color/blackPrimary" />
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>
