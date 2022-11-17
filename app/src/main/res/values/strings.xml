@@ -32,21 +32,33 @@
     <string name="is_varstriniciariesionprincipal1">ENVIA TUS PRODUCTOS A MÁS PERSONAS</string>
     <string name="is_varstriniciariesionprincipal2">Continuar con Facebook</string>
     <string name="is_varstriniciariesionprincipal3">Continuar con Google</string>
+    <string name="ok">OK</string>
+    <string name="loading">Loading</string>
+    <string name="account_deactivate">Your Account is deactivate by admin</string>
+    <string name="completed_register">we\'re almost done, we just need you to upload your profile picture</string>
+    <string name="default_web_client_id" translatable="false">869132616981-v7gms838fme64hfud43s6sconqee4t8m.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">869132616981</string>
+    <string name="google_api_key" translatable="false">AIzaSyBgTB4wH2vYgkQnA4ob8DQqIs54_DQStss</string>
+    <string name="google_app_id" translatable="false">1:869132616981:android:dff11b6c8d905c5b74551c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBgTB4wH2vYgkQnA4ob8DQqIs54_DQStss</string>
+    <string name="google_storage_bucket" translatable="false">encargalo-268d4.appspot.com</string>
+    <string name="project_id" translatable="false">encargalo-268d4</string>
+
+    <string name="facebook_app_id">527693228852939</string>
+    <string name="fb_login_protocol_scheme">fb527693228852939</string>
+    <string name="facebook_client_token">e1d702468111fb8695c474e2b8ba121c</string>
+
 
     <!-- Is_crearunacuenta -->
     <string name="is_varstrcrearunacuenta1">Nombre</string>
     <string name="is_varstrcrearunacuenta2">Apellido</string>
     <string name="is_varstrcrearunacuenta3">Correo</string>
     <string name="is_varstrcrearunacuenta4">Tipo de Persona</string>
-    <string name="is_varstrcrearunacuenta5">52</string>
-    <string name="is_varstrcrearunacuenta6">Número de teléfono</string>
-    <string name="is_varstrcrearunacuenta7">Acepto los términos y condiciones y políticas de Privacidad</string>
-    <string name="is_varstrcrearunacuenta8">Registrarse</string>
-    <string name="is_varstrcrearunacuenta9">Cerrar</string>
-    <string-array name="is_varstrcrearunacuenta9">
-        <item>Persona natural</item>
-        <item>Persona jurídica</item>
-    </string-array>
+    <string name="is_varstrcrearunacuenta5">Número de Documento</string>
+    <string name="is_varstrcrearunacuenta6">Acepto los términos y condiciones y políticas de Privacidad</string>
+    <string name="is_varstrcrearunacuenta7">Registrarse</string>
+
+    <string name="is_varstrcrearunacuenta9">Acepto términos y condiciones y políticas de Privacidad</string>
 
     <string-array name="is_qpkitemspinnercodpais">
         <item>+1</item>
