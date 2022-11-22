@@ -1,7 +1,6 @@
 package mx.com.encargalo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -16,6 +15,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,15 +48,16 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
+import  org.json.JSONException;
+
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import mx.com.encargalo.tendero.Inicio_sesion.MainActivity;
@@ -204,7 +205,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                             hideProgressDialog();
                             //ShowReferDialog(user.getUid(), userName[0] + id, personName, email, user.getPhotoUrl().toString(), "gmail");
                         } else
-                            UserSignUpWithSocialMedia(user.getUid(), "", userName[0] + id, user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString(), "1", "gmail");
+                            UserSignUpWithSocialMedia(user.getUid(), "", userName[0] + id, user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString(), "1", "gmail", "idDocumentoPersona");
                     } else {
                         hideProgressDialog();
 
@@ -222,7 +223,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                 });
     }
 
-    public void UserSignUpWithSocialMedia(final String authId, final String fCode, final String referCode, final String name, final String email, final String profile, final String rolusuario, final String type) {
+    public void UserSignUpWithSocialMedia(final String authId, final String fCode, final String referCode, final String name, final String email, final String profile, final String rolusuario, final String type, final String idDocumentopersona) {
         HashMap<String, String> params = new HashMap<>();
         emailGmail= email;
         params.put(is_cls_Constants_InicioSesion.email, email);
@@ -232,13 +233,61 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
 
         String url= Util.RUTA+"/c_existencia_usuario.php?sp_usuCorreo="+emailGmail;
         url=url.replace(" ","%20");
+
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response ) {
 
-                is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
+                {
 
-                // Navigation.findNavController(Activity getContext()).navigate(R.id.nav_mi_tienda);
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("usuario");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject usuario = jsonArray.getJSONObject(i);
+                            params.put(is_cls_Constants_InicioSesion.idDocumentoPersona, usuario.getString("idDocumentoPersona"));
+                            //String valor=usuario.getString("usuToken");
+
+                            String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_usuCorreo="+emailGmail;
+                            url=url.replace(" ","%20");
+
+                            jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response ) {
+
+                                    {
+
+
+
+                                        //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actverificacioncodigo.class).muestraActividad(params);
+
+                                        is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
+
+                                    }
+
+
+
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+
+                                    is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actverificacioncodigo.class).muestraActividad(params);
+                                    //startActivity(intent);
+
+                                }
+                            });
+                            request.add(jsonObjectRequest);
+                              //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actverificacioncodigo.class).muestraActividad(params);
+
+                            // is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -259,6 +308,14 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
 
         //  Activitys.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class).muestraActividad(params);
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -292,7 +349,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                                 hideProgressDialog();
                                 //ShowReferDialog(user.getUid(), referCode + id, personName, "" + user.getEmail(), user.getPhotoUrl().toString(), "fb");
                             } else
-                                UserSignUpWithSocialMedia(user.getUid(), "", referCode + id, personName, "" + user.getEmail(), user.getPhotoUrl().toString(), "1","fb");
+                                UserSignUpWithSocialMedia(user.getUid(), "", referCode + id, personName, "" + user.getEmail(), user.getPhotoUrl().toString(), "1","fb", "idDocumentoPersona");
                         } else {
                             // If sign in fails, display a message to the user.
 
@@ -350,13 +407,58 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                                                     params.put(is_cls_Constants_InicioSesion.rolusuario, "1");
                                                     String url= Util.RUTA+"/c_existencia_usuario.php?sp_usuCorreo="+emailFB;
                                                     url=url.replace(" ","%20");
+
                                                     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                                                         @Override
-                                                        public void onResponse(JSONObject response ) {
-                                                            is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
-                                                            // Navigation.findNavController(Activity getContext()).navigate(R.id.nav_mi_tienda);
 
+                                                        public void onResponse(JSONObject response ) {
+                                                            try {
+                                                                JSONArray jsonArray = response.getJSONArray("usuario");
+                                                                for (int i=0; i<jsonArray.length();i++){
+                                                                    JSONObject usuario = jsonArray.getJSONObject(i);
+                                                                    //   idDocumentoPersona=usuario.getString("idDocumentoPersona");
+                                                                    params.put(is_cls_Constants_InicioSesion.idDocumentoPersona, usuario.getString("idDocumentoPersona"));
+
+                                                                    String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_usuCorreo="+emailFB;
+                                                                    url=url.replace(" ","%20");
+
+                                                                    jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                                                                        @Override
+                                                                        public void onResponse(JSONObject response ) {
+
+                                                                            {
+
+
+
+                                                                                //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actverificacioncodigo.class).muestraActividad(params);
+
+                                                                                is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
+
+                                                                            }
+
+
+
+                                                                        }
+                                                                    }, new Response.ErrorListener() {
+                                                                        @Override
+                                                                        public void onErrorResponse(VolleyError error) {
+
+
+                                                                            is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actverificacioncodigo.class).muestraActividad(params);
+                                                                            //startActivity(intent);
+
+                                                                        }
+                                                                    });
+                                                                    request.add(jsonObjectRequest);
+
+
+
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
                                                         }
+
                                                     }, new Response.ErrorListener() {
                                                         @Override
                                                         public void onErrorResponse(VolleyError error) {
@@ -455,34 +557,68 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
 
 
 
-    private void wsInicioSesionFB(){
-        String url= "http://192.168.101.85/API/c_existencia_usuario.php?sp_usuCorreo="+emailFB;
-        url=url.replace(" ","%20");
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response ) {
-                Intent verif = new Intent(activity_is_actiniciarsesionprincipal.this, MainActivity.class);
-                startActivity(verif);
+//    private void wsInicioSesionFB(){
+//        String url= "http://192.168.101.85/API/c_existencia_usuario.php?sp_usuCorreo="+emailFB;
+//        url=url.replace(" ","%20");
+//        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response ) {
+//                Intent verif = new Intent(activity_is_actiniciarsesionprincipal.this, MainActivity.class);
+//                startActivity(verif);
+//
+//
+//
+//                // Navigation.findNavController(Activity getContext()).navigate(R.id.nav_mi_tienda);
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//
+//
+//                Intent intent = new Intent(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class);
+//
+//                startActivity(intent);
+//                //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class).muestraActividad(params);
+//                // Activitys.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class).muestraActividad(params);
+//            }
+//        });
+//        request.add(jsonObjectRequest);
+//
+//    }
+public void consultarestadocuentagmail(){
+    String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_usuCorreo="+emailGmail;
+    url=url.replace(" ","%20");
+
+    jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject response ) {
+
+            {
 
 
 
-                // Navigation.findNavController(Activity getContext()).navigate(R.id.nav_mi_tienda);
+                        //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actverificacioncodigo.class).muestraActividad(params);
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+//                         is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, MainActivity.class).muestraActividad(params);
 
+                    }
 
 
-                Intent intent = new Intent(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class);
 
-                startActivity(intent);
-                //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class).muestraActividad(params);
-                // Activitys.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class).muestraActividad(params);
-            }
-        });
-        request.add(jsonObjectRequest);
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
 
-    }
+
+            //is_cls_ActivitysInicioSesion.getSingleton(activity_is_actiniciarsesionprincipal.this, activity_is_actcrearunacuenta.class).muestraActividad(params);
+            //startActivity(intent);
+
+        }
+    });
+    request.add(jsonObjectRequest);
+}
+
 }

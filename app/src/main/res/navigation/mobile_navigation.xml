@@ -67,4 +67,10 @@
         android:name="mx.com.encargalo.tendero.Inicio_sesion.ui.Soporte.sp_frgmenusoporte"
         android:label="@string/menu_soporte"
         tools:layout="@layout/fragment_sp_frgmenusoporte" />
+
+    <fragment
+        android:id="@+id/nav_terminosyprivacidad"
+        android:name="mx.com.encargalo.is_lytterminosyprivacidad"
+        android:label="tyc"
+        tools:layout="@layout/fragment_is_lytterminosyprivacidad" />
 </navigation>

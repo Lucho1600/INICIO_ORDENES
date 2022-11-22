@@ -9,6 +9,10 @@
         android:right="@dimen/btn_type_padding"
         android:bottom="@dimen/btn_type_padding"
         />
+    <stroke
+        android:width="@dimen/btn_type_stroke"
+        android:color="@color/blue_400"
+        />
     <corners
         android:radius="5dp"
         />

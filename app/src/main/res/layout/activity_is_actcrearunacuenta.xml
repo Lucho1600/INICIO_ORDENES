@@ -44,6 +44,7 @@
             android:textAllCaps="false"
             android:background="@drawable/containedbtn_grey"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:maxLength="20"
             />
 
 
@@ -181,7 +182,7 @@
                 android:layout_marginLeft="35dp"/>
 
             <TextView
-                android:id="@+id/is_cuctwterminosycondiciones"
+                android:id="@+id/is_cucbtnterminosycondiciones"
                 android:layout_width="230dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
@@ -190,6 +191,7 @@
                 android:text="@string/is_varstrcrearunacuenta9"
                 android:textAllCaps="false"
                 android:textColor="@color/blue_600"
+                android:contextClickable="true"
                 android:textSize="15dp" />
         </LinearLayout>
         //android:background="none"
@@ -204,7 +206,9 @@
             android:background="@drawable/containedbtn_blue"
             android:text="@string/is_varstrcrearunacuenta7"
             android:textAllCaps="true"
-            android:textColor="@color/whitePrimary" />
+            android:textColor="@color/whitePrimary"
+            android:clickable = "false"
+            />
 
 
     </LinearLayout>

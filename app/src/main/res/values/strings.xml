@@ -17,9 +17,9 @@
     <string name="menu_mitienda">MI TIENDA</string>
     <string name="menu_misproductos">MIS PRODUCTOS</string>
     <string name="menu_misordenes">MIS ORDENES</string>
-        <string name="mio_menu_detallepedido">DETALLE DEL PEDIDO</string>
-        <string name="mio_menu_detalleproducto">DETALLE DEL PRODUCTO</string>
-        <string name="mio_menu_conversacion">CONVERSACION</string>
+    <string name="mio_menu_detallepedido">DETALLE DEL PEDIDO</string>
+    <string name="mio_menu_detalleproducto">DETALLE DEL PRODUCTO</string>
+    <string name="mio_menu_conversacion">CONVERSACION</string>
     <string name="menu_mipublicidad">MI PUBLICIDAD</string>
     <string name="menu_miaprendizaje">MI APRENDIZAJE</string>
     <string name="menu_soporte">SOPORTE</string>
@@ -29,7 +29,7 @@
     <!-- O1 MÓDULO INICIO DE SESIÓN -->
 
     <!-- is_iniciarsesionprincipal -->
-    <string name="is_varstriniciariesionprincipal1">ENVIA TUS PRODUCTOS A MÁS PERSONAS</string>
+    <string name="is_varstriniciariesionprincipal1">ENVÍA TUS PRODUCTOS A MÁS PERSONAS</string>
     <string name="is_varstriniciariesionprincipal2">Continuar con Facebook</string>
     <string name="is_varstriniciariesionprincipal3">Continuar con Google</string>
     <string name="ok">OK</string>
@@ -87,7 +87,7 @@
     <!-- is_verificacioncodigo -->
     <string name="is_varstrverificacioncodigo1">Ingrese el código de verificación</string>
     <string name="is_varstrverificacioncodigo2">Se le ha enviado un código de verificación a tu cuenta de correo</string>
-    <string name="is_varstrverificacioncodigo3">Ingrese código</string>
+    <string name="is_varstrverificacioncodigo3">Verificar Cuenta</string>
     <string name="is_varstrverificacioncodigo4">Reenviar Código</string>
     <string name="is_varstrverificacioncodigo5">Continuar</string>
 
@@ -180,9 +180,11 @@
     <string name="mio_varstrenviarorden3">Cancelar</string>
 
     <!-- mio_terminosycondiciones -->
-    <string name="mio_varstrterminosycondiciones1">Términos y condiciones de uso y Política de privacidad</string>
-    <string name="mio_varstrterminosycondiciones2">Aceptar</string>
-    <string name="mio_varstrterminosycondiciones3">Cancelar</string>
+    <string name="is_varstrterminosycondiciones1">Términos y condiciones de uso</string>
+    <string name="is_varstrterminosycondiciones2">""</string>
+    <string name="is_varstrterminosycondiciones3">Política de privacidad</string>
+    <string name="is_varstrterminosycondiciones4">""</string>
+    <string name="is_varstrterminosycondiciones5">Cancelar</string>
 
     <!-- mio_brindarubicaion -->
     <string name="mio_varstrbrindarubicacion1">¿Desea activar su ubicación?</string>

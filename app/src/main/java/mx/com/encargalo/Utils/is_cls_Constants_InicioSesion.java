@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 public class is_cls_Constants_InicioSesion {
     public static String userSignUp = "user_signup";
-    public static String email = "email";
+    public static String email = "usuCorreo";
     public static String AUTH_ID = "firebase_id";
     public static String image = "image";
     public static String name = "name";
@@ -17,6 +17,7 @@ public class is_cls_Constants_InicioSesion {
     public static String REFER_CODE = "refer_code";
     public static String FRIENDS_CODE = "friends_code";
     public static String rolusuario = "1";
+    public static String idDocumentoPersona = "idDocumentoPersona";
 
     public static boolean isNetworkAvailable(Activity activity) {
         try {
