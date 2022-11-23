@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,30 +20,32 @@ import java.util.ArrayList;
 
 import mx.com.encargalo.Model.mio_mdlOrdenesOrden;
 import mx.com.encargalo.R;
+import mx.com.encargalo.Utils.mio_cls_Consulta_detalle_pedido;
 
 public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrdenesOrden.ViewHolder> {
 
     LayoutInflater inflater;
     ArrayList<mio_mdlOrdenesOrden> listaOrdenes;
-    SendData listener;
+    Context context;
 
 
 
-    public mio_adaprvOrdenesOrden(Context context, ArrayList<mio_mdlOrdenesOrden> listaOrdenes, SendData listener){
+    public mio_adaprvOrdenesOrden(Context context, ArrayList<mio_mdlOrdenesOrden> listaOrdenes){
 
         this.inflater = LayoutInflater.from(context);
         this.listaOrdenes = listaOrdenes;
-        this.listener = listener;
     }
 
     @NonNull
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+
         View vista = inflater.inflate(R.layout.mio_menuitemlistaordenes, parent, false);
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         vista.setLayoutParams(layoutParams);
         return new ViewHolder(vista);
+
     }
 
     @Override
@@ -49,9 +54,11 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
 
         int idOrden = listaOrdenes.get(position).getIdOrden();
         String odFechaPedido = listaOrdenes.get(position).getOdFechaPedido();
+        String odHoraPedido = listaOrdenes.get(position).getOdHoraPedido();
         String perNombreCompleto = listaOrdenes.get(position).getPerNombreCompleto();
         String odEstado = listaOrdenes.get(position).getOdEstado();
         int idRepartidor = listaOrdenes.get(position).getIdRepartidor();
+        String repNombres = listaOrdenes.get(position).getRepNombres();
         holder.idOrden.setText(String.valueOf(idOrden));
         holder.odFechaPedido.setText(odFechaPedido);
         holder.perNombreCompleto.setText(perNombreCompleto);
@@ -59,9 +66,17 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
         holder.txt_Detalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String datosOrden[] = { String.valueOf(idOrden), perNombreCompleto};
-                listener.sendInfo(datosOrden);
+
+                mio_cls_Consulta_detalle_pedido.perNombreCompleto = perNombreCompleto;
+                mio_cls_Consulta_detalle_pedido.idOrden = idOrden;
+                mio_cls_Consulta_detalle_pedido.odFechaSolicitado = odFechaPedido;
+                mio_cls_Consulta_detalle_pedido.odHoraSolicitado = odHoraPedido;
+                mio_cls_Consulta_detalle_pedido.idRepartidor = idRepartidor;
+                mio_cls_Consulta_detalle_pedido.repNombres = repNombres;
+                mio_cls_Consulta_detalle_pedido.odEstadoPedido = odEstado;
                 Navigation.findNavController(view).navigate(R.id.nav_misordenesdetallepedido);
+
+
             }
         });
 
@@ -69,7 +84,11 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
             @Override
             public void onClick(View view) {
                 if(idRepartidor == 0){
-                    Toast.makeText(view.getContext(), "No asigno repartidor "+ String.valueOf(idRepartidor), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Asigne un repartidor en detalle", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Navigation.findNavController(view).navigate(R.id.nav_misordenesconversacion);
+
                 }
 
             }
@@ -98,10 +117,6 @@ public class mio_adaprvOrdenesOrden extends RecyclerView.Adapter<mio_adaprvOrden
         }
     }
 
-    public interface SendData {
-        void sendInfo(String [] datosOrden);
-
-    }
 
 
 

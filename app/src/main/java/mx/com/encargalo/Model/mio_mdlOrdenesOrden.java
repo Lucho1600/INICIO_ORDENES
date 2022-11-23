@@ -7,14 +7,35 @@ public class mio_mdlOrdenesOrden {
     private String perNombreCompleto;
     private String odEstado;
     private int idRepartidor;
+    private String odHoraPedido;
+
+    public String getRepNombres() {
+        return repNombres;
+    }
+
+    public void setRepNombres(String repNombres) {
+        this.repNombres = repNombres;
+    }
+
+    public String repNombres;
 
     public mio_mdlOrdenesOrden () {};
-    public mio_mdlOrdenesOrden(int idOrden, String odFechaPedido, String perNombreCompleto, String odEstado, int idRepartidor) {
+    public mio_mdlOrdenesOrden(int idOrden, String odFechaPedido, String perNombreCompleto, String odEstado, int idRepartidor, String repNombres, String odHoraPedido) {
         this.idOrden = idOrden;
         this.odFechaPedido = odFechaPedido;
         this.perNombreCompleto = perNombreCompleto;
         this.odEstado = odEstado;
         this.idRepartidor = idRepartidor;
+        this.repNombres = repNombres;
+        this.odHoraPedido = odHoraPedido;
+    }
+
+    public String getOdHoraPedido() {
+        return odHoraPedido;
+    }
+
+    public void setOdHoraPedido(String odHoraPedido) {
+        this.odHoraPedido = odHoraPedido;
     }
 
     public int getIdRepartidor() {
@@ -58,3 +79,4 @@ public class mio_mdlOrdenesOrden {
         this.odEstado = odEstado;
     }
 }
+

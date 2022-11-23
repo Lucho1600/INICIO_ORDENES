@@ -142,9 +142,10 @@
     <string name="mio_varstrdetallepedido14">Dirección de entrega</string>
     <string name="mio_varstrdetallepedido15">dirección</string>
     <string name="mio_varstrdetallepedido16">Productos</string>
+    <string name="mio_varstrdetallepedido17">Preparado</string>
     <string-array name="repartidores">
-        <item>Paolo</item>
-        <item>Adrián</item>
+        <item>SELECCIONE</item>
+
     </string-array>
 
     <!-- mio_detalleproducto -->
@@ -155,6 +156,12 @@
     <string name="mio_varstrdetalleproducto5">1 un s/1.5</string>
     <string name="mio_varstrdetalleproducto6">Cancelar Orden</string>
     <string name="mio_varstrdetalleproducto7">Enviar</string>
+    <string name="mio_varstrdetalleproducto8">Total</string>
+
+    <!-- mio_actualizarrepartidor -->
+    <string name="mio_varstractualizarrepartidor1">¿Seguro que desea elegir a este repartidor?</string>
+    <string name="mio_varstractualizarrepartidor2">Aceptar</string>
+    <string name="mio_varstractualizarrepartidor3">Cancelar</string>
 
     <!-- mio_conversacióncliente-->
     <string name="mio_varstrchatcliente1">CONVERSACIÓN</string>
