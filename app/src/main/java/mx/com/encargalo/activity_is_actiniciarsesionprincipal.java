@@ -231,7 +231,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
         params.put(is_cls_Constants_InicioSesion.PROFILE, profile);
         params.put(is_cls_Constants_InicioSesion.rolusuario, rolusuario);
 
-        String url= Util.RUTA+"/c_existencia_usuario.php?sp_usuCorreo="+emailGmail;
+        String url= Util.RUTA+"/c_existencia_usuario_inicio_sesion.php?sp_usuCorreo="+emailGmail;
         url=url.replace(" ","%20");
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -405,7 +405,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                                                     //params.put(Constants.name, user.optString("first_name"+"last_name"));
                                                     params.put(is_cls_Constants_InicioSesion.PROFILE, profileUrl);
                                                     params.put(is_cls_Constants_InicioSesion.rolusuario, "1");
-                                                    String url= Util.RUTA+"/c_existencia_usuario.php?sp_usuCorreo="+emailFB;
+                                                    String url= Util.RUTA+"/c_existencia_usuario_inicio_sesion.php?sp_usuCorreo="+emailFB;
                                                     url=url.replace(" ","%20");
 
                                                     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

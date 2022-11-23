@@ -58,8 +58,6 @@ public class activity_is_actverificacioncodigo extends AppCompatActivity {
         btnreenviar=(Button)findViewById(R.id.is_vcbtnreenviarcodigo);
         edtcodigoverificacion = findViewById(R.id.is_vcedtcodigoverificacion);
         correo=email;
-        textprueba=findViewById(R.id.textView2);
-       textprueba.setText("" + email);
 //        cargarWebService();
 //        enviar_correo();
 
@@ -185,7 +183,7 @@ public void insertartoken(){
 }
 
 public void enviardatos(){
-    String url= Util.RUTA+"/c_existencia_usuario.php?sp_usuCorreo="+email;
+    String url= Util.RUTA+"/c_existencia_usuario_inicio_sesion.php?sp_usuCorreo="+email;
     url=url.replace(" ","%20");
 
     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
