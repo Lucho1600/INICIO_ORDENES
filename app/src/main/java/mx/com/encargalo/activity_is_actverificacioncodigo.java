@@ -157,14 +157,14 @@ public void verificarcuenta(){
 }
 
 public void insertartoken(){
-    String url= Util.RUTA+"m_codigo_verificacion_valido_inicio_sesion.php?sp_usuCorreo="+email+"&sp_usuToken="+edtcodigoverificacion.getText().toString();
+    String url= Util.RUTA+"m_codigo_verificacion_valido_inicio_sesion.php?sp_codvCorreo="+email+"&sp_codvCodigo="+edtcodigoverificacion.getText().toString();
     url=url.replace(" ","%20");
     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject response) {
             Toast.makeText(activity_is_actverificacioncodigo.this,"", Toast.LENGTH_SHORT).show();
 
-
+           // Toast.makeText(activity_is_actverificacioncodigo.this,"Validando Cuenta", Toast.LENGTH_SHORT).show();
             // Intent intent=new Intent(activity_is_actverificacioncodigo.this,activity_is_actverificacioncodigo.class);
             //intent.putExtra("UsuCorreo", is_edtcorreo.getText().toString());
             //startActivity(intent);
@@ -174,7 +174,7 @@ public void insertartoken(){
         @Override
         public void onErrorResponse(VolleyError error) {
             //progreso.hide();
-            Toast.makeText(activity_is_actverificacioncodigo.this,"Error, consulte con soporte", Toast.LENGTH_SHORT).show();
+      //      Toast.makeText(activity_is_actverificacioncodigo.this,"Error, consulte con soporte", Toast.LENGTH_SHORT).show();
         }
     });
     request.add(jsonObjectRequest);
@@ -217,7 +217,7 @@ public void enviardatos(){
 
 
          //   progreso.hide();
-            Toast.makeText(activity_is_actverificacioncodigo.this,"Error, consulte con soporte", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(activity_is_actverificacioncodigo.this,"Error, consulte con soporte", Toast.LENGTH_SHORT).show();
 
         }
     });

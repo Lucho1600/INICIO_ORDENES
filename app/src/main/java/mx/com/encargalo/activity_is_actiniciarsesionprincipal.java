@@ -247,7 +247,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                             params.put(is_cls_Constants_InicioSesion.idDocumentoPersona, usuario.getString("idDocumentoPersona"));
                             //String valor=usuario.getString("usuToken");
 
-                            String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_usuCorreo="+emailGmail;
+                            String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_codvCorreo="+emailGmail;
                             url=url.replace(" ","%20");
 
                             jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -419,7 +419,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
                                                                     //   idDocumentoPersona=usuario.getString("idDocumentoPersona");
                                                                     params.put(is_cls_Constants_InicioSesion.idDocumentoPersona, usuario.getString("idDocumentoPersona"));
 
-                                                                    String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_usuCorreo="+emailFB;
+                                                                    String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_codvCorreo="+emailFB;
                                                                     url=url.replace(" ","%20");
 
                                                                     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -588,7 +588,7 @@ public class activity_is_actiniciarsesionprincipal extends AppCompatActivity {
 //
 //    }
 public void consultarestadocuentagmail(){
-    String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_usuCorreo="+emailGmail;
+    String url= Util.RUTA+"/c_estado_usuario_inicio_sesion.php?sp_codvCorreo="+emailGmail;
     url=url.replace(" ","%20");
 
     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

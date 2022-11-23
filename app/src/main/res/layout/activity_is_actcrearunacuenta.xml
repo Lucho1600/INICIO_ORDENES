@@ -152,7 +152,6 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:spinnerMode="dropdown"
-                android:entries="@array/is_qpkitemspinnercodpais"
                 android:background="@drawable/outline_spinner" />
 
 

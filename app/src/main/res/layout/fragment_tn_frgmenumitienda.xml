@@ -4,5 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".tendero.Inicio_sesion.ui.Mi_tienda.tn_frgmenumitienda">
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
 
     </LinearLayout>

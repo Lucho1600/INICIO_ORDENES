@@ -60,29 +60,6 @@
 
     <string name="is_varstrcrearunacuenta9">Acepto términos y condiciones y políticas de Privacidad</string>
 
-    <string-array name="is_qpkitemspinnercodpais">
-        <item>+1</item>
-        <item>+52</item>
-        <item>+51</item>
-        <item>+54</item>
-        <item>+55</item>
-        <item>+56</item>
-        <item>+57</item>
-        <item>+58</item>
-        <item>+501</item>
-        <item>+502</item>
-        <item>+503</item>
-        <item>+504</item>
-        <item>+505</item>
-        <item>+506</item>
-        <item>+507</item>
-        <item>+591</item>
-        <item>+591</item>
-        <item>+592</item>
-        <item>+595</item>
-        <item>+597</item>
-        <item>+598</item>
-    </string-array>
 
     <!-- is_verificacioncodigo -->
     <string name="is_varstrverificacioncodigo1">Ingrese el código de verificación</string>
