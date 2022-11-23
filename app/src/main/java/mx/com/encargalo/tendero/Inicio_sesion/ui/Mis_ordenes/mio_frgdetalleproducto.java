@@ -4,10 +4,8 @@ import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -30,7 +28,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,16 +41,16 @@ import mx.com.encargalo.Adapters.mio_adaplvProductosOrdenAdapter;
 import mx.com.encargalo.Model.mio_mdlProductosOrden;
 import mx.com.encargalo.R;
 import mx.com.encargalo.Utils.Util;
+import mx.com.encargalo.Utils.mio_cls_Consulta_detalle_pedido;
 
-public class mio_frgdetalleproducto extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class mio_frgdetalleproducto extends Fragment {
     Button mio_dpbtncancelarorden,mio_dpbtnenviarorden;
     Dialog dialog;
     View confirmacion, cancelacion;
     ListView mio_lstvwProductos;
-    TextView tv_cantProductos;
+    TextView tv_cantProductos, mio_txtmostrartotal;
     CheckBox ch_selec_all;
     RequestQueue requestQueue;
-    StringRequest stringRequest;
     JsonObjectRequest jsonObjectRequest;
     ArrayList<mio_mdlProductosOrden> mio_mdlProductosOrdenList;
     mio_adaplvProductosOrdenAdapter adapter;
@@ -63,12 +60,23 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_mio_frgdetalleproducto, container, false);
+
+        //Enlace de elementos del layout por id
         mio_dpbtncancelarorden=vista.findViewById(R.id.mio_dpbtncancelarorden);
         mio_lstvwProductos = vista.findViewById(R.id.mio_lstvProductos);
         mio_dpbtnenviarorden=vista.findViewById(R.id.mio_dpbtnenviarorden);
         tv_cantProductos = vista.findViewById(R.id.mio_dptxtcontadorproductos);
         ch_selec_all = vista.findViewById(R.id.chxbTodosProductos);
+        mio_txtmostrartotal = vista.findViewById(R.id.mio_txtmostrartotal);
+
         requestQueue = Volley.newRequestQueue(getContext());
+
+        if(mio_cls_Consulta_detalle_pedido.odEstadoPedido != "SOLICITADO"){
+            mio_dpbtncancelarorden.setVisibility(vista.GONE);
+            mio_dpbtnenviarorden.setVisibility(vista.GONE);
+        }
+
+        // Inicializamos el array de lista productos
         mio_mdlProductosOrdenList = new ArrayList<>();
         mio_dpbtncancelarorden.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,21 +88,18 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
         mio_dpbtnenviarorden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ch_selec_all.isChecked()){
-                    confirmacion=v;
-                    enviarorden();
-                }else {
-                    Toast.makeText(getContext(), "Debe seleccionar todos los items", Toast.LENGTH_SHORT).show();
+
+                if(mio_cls_Consulta_detalle_pedido.idRepartidor == 0){
+                    Toast.makeText(getContext(), "Debe seleccionar un repartidor disponible", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        getParentFragmentManager().setFragmentResultListener("detallesProducto", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull @NotNull String requestKey, @NonNull @NotNull Bundle result) {
-                String idOrden = result.getString("idOrden");
-
-                cargarWebService(idOrden);
+                else{
+                    if (ch_selec_all.isChecked()){
+                        confirmacion=v;
+                        enviarorden();
+                    }else {
+                        Toast.makeText(getContext(), "Debe seleccionar todos los items", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 
@@ -108,7 +113,8 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
             }
         });
 
-
+        //Procedimiento para cargar la lista de productos al momento de crear el fragment
+        cargarWebService();
 
         ch_selec_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +126,7 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
                 }else {
                     adapter.removeSelection();
                 }
-                //Toast.makeText(getContext(), "Cantidad:"+adapter.getCountItems(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -129,9 +135,74 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
         return vista;
     }
 
-    private void cargarWebService(String urlIdOrden) {
-        String url = Util.RUTA+"c_detalle_orden_x_id_mis_ordenes.php?id_orden="+urlIdOrden;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+    //Prodecimiento para obtener la lista de productos segun el id de la orden
+    private void cargarWebService() {
+
+        //Asignación de url de API
+        String url = Util.RUTA+"c_detalle_orden_x_id_mis_ordenes.php?id_orden="+ mio_cls_Consulta_detalle_pedido.idOrden;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            //Procedimiento que se ejecuta si hay respuesta en lista de productos
+            public void onResponse(JSONObject response) {
+                mio_mdlProductosOrden productos = null;
+                JSONArray json = response.optJSONArray("consulta");
+                Double total = 0.0;
+
+                try {
+
+
+                    for (int i = 0; i < json.length(); i++) {
+                        productos = new mio_mdlProductosOrden();
+                        JSONObject jsonObject = null;
+                        jsonObject = json.getJSONObject(i);
+                        productos.setMio_locidProducto(jsonObject.optInt("idListadoProductoTienda"));
+                        productos.setMio_locdescProducto(jsonObject.optString("proDescripcion"));
+                        productos.setMio_locprecioProducto(jsonObject.optDouble("doPrecioVenta"));
+                        productos.setMio_locimagenProducto(jsonObject.optString("lptImagen1"));
+                        productos.setMio_locunidadMedidaProducto(jsonObject.optString("proUnidadMedida"));
+                        productos.setMio_loccantProducto(jsonObject.optInt("doCantidad"));
+                        mio_mdlProductosOrdenList.add(productos);
+
+                        int cantidad = jsonObject.optInt("doCantidad");
+                        Double precioventa = jsonObject.optDouble("doPrecioVenta");
+                        total = total + (cantidad * precioventa);
+
+                    }
+                    adapter = new mio_adaplvProductosOrdenAdapter(getContext(), mio_mdlProductosOrdenList, new mio_adaplvProductosOrdenAdapter.onClick() {
+                        @Override
+                        public void onClick(int id) {
+                            adapter.checkCheckBox(id, !adapter.getBooleanSelectedItem(id));
+                            if (adapter.getCountItems() == mio_mdlProductosOrdenList.size()) {
+                                ch_selec_all.setChecked(true);
+                            } else {
+                                ch_selec_all.setChecked(false);
+                            }
+                        }
+                    });
+
+                    mio_txtmostrartotal.setText("S/ " +String.valueOf(total));
+                    mio_lstvwProductos.setAdapter(adapter);
+                    mio_lstvwProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    tv_cantProductos.setText("(" + mio_mdlProductosOrdenList.size() + " )");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "No hay conexion" + response, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            //Procedimiento que se ejecuta si hay error en respuesta en lista de productos
+            public void onErrorResponse(VolleyError error) {
+                //Enviamos un mensaje con el error de respuesta
+                Toast.makeText(getContext(), "Error: " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -154,35 +225,46 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
             @Override
             public void onClick(View v) {
                 cargarWebServiceEnviarOrden();
-                //Navigation.findNavController(confirmacion).navigate(R.id.nav_misordenesconfirmacion);
+
                 dialog.dismiss();
             }
         });
         dialog.show();
     }
 
-    private void cargarWebServiceEnviarOrden() {
-        String url = Util.RUTA + "m_estado_orden_preparado_a_enpreparacion.php";
+    private void cargarWebServiceEnviarOrden()
+    {
+        String url = Util.RUTA + "m_orden_estado_mis_ordenes.php?sp_idOrden="+mio_cls_Consulta_detalle_pedido.idOrden+"&sp_odEstado=ACEPTADO";
         url = url.replace(" ", "%20");
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
+
+                JSONArray json = null;
+                json = response.optJSONArray("sp_m_repartidor_por_orden_mis_ordenes");
+                JSONObject jsonObject = null;
                 Navigation.findNavController(confirmacion).navigate(R.id.nav_misordenesconfirmacion);
+
+                try {
+                    jsonObject = json.getJSONObject(0);
+                    mio_cls_Consulta_detalle_pedido.odEstadoAceptado = jsonObject.optString("esorEstado");
+                    mio_cls_Consulta_detalle_pedido.odFechaAceptado = jsonObject.optString("esorFecha");
+                    mio_cls_Consulta_detalle_pedido.odHoraAceptado = jsonObject.optString("esorHora");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "Error al actualizar" + error.toString(), Toast.LENGTH_SHORT).show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("idOrden","1");
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void cancelarOrden() {
@@ -210,82 +292,43 @@ public class mio_frgdetalleproducto extends Fragment implements Response.ErrorLi
         dialog.show();
     }
 
-    private void cargarWebServiceRechazarOrden() {
-        String url = Util.RUTA + "m_estado_orden_preparado_a_rechazado.php";
+    private void cargarWebServiceRechazarOrden()
+    {
+        String url = Util.RUTA + "m_orden_estado_mis_ordenes.php?sp_idOrden="+mio_cls_Consulta_detalle_pedido.idOrden+"&sp_odEstado=RECHAZADO";
         url = url.replace(" ", "%20");
-        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Navigation.findNavController(cancelacion).navigate(R.id.nav_misordenesdetallepedido);
+            public void onResponse(JSONObject response) {
+
+                JSONArray json = null;
+                json = response.optJSONArray("sp_m_repartidor_por_orden_mis_ordenes");
+                JSONObject jsonObject = null;
+                Toast.makeText(getContext(), "La orden ha sido rechazada", Toast.LENGTH_SHORT).show();
+
+                try {
+                    jsonObject = json.getJSONObject(0);
+                    mio_cls_Consulta_detalle_pedido.odEstadoRechazado = jsonObject.optString("esorEstado");
+                    mio_cls_Consulta_detalle_pedido.odFechaRechazado = jsonObject.optString("esorFecha");
+                    mio_cls_Consulta_detalle_pedido.odHoraRechazado = jsonObject.optString("esorHora");
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error al rechazar" + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error al actualizar" + error.toString(), Toast.LENGTH_SHORT).show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> params = new HashMap<>();
-                params.put("idOrden","1");
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "Error: " + error, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
-        mio_mdlProductosOrden productos = null;
-        JSONArray json = response.optJSONArray("consulta");
-
-        try {
-            for (int i = 0; i<json.length();i++){
-                productos = new mio_mdlProductosOrden();
-                JSONObject jsonObject = null;
-                jsonObject = json.getJSONObject(i);
-                productos.setMio_locidProducto(jsonObject.optInt("idListadoProductoTienda"));
-                productos.setMio_locdescProducto(jsonObject.optString("proDescripcion"));
-                productos.setMio_locprecioProducto(jsonObject.optDouble("doPrecioVenta"));
-                productos.setMio_locimagenProducto(jsonObject.optString("lptImagen1"));
-                productos.setMio_locunidadMedidaProducto(jsonObject.optString("proUnidadMedida"));
-                productos.setMio_loccantProducto(jsonObject.optInt("doCantidad"));
-                mio_mdlProductosOrdenList.add(productos);
-
-            }
-            adapter = new mio_adaplvProductosOrdenAdapter(getContext(), mio_mdlProductosOrdenList, new mio_adaplvProductosOrdenAdapter.onClick() {
-                @Override
-                public void onClick(int id) {
-                    adapter.checkCheckBox(id, !adapter.getBooleanSelectedItem(id));
-                    if (adapter.getCountItems()==mio_mdlProductosOrdenList.size()){
-                        ch_selec_all.setChecked(true);
-                    }else {
-                        ch_selec_all.setChecked(false);
-                    }
-                }
-            });
-            mio_lstvwProductos.setAdapter(adapter);
-            mio_lstvwProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
-                }
-            });
-            tv_cantProductos.setText("(" +mio_mdlProductosOrdenList.size() +" )");
-
-        }catch (JSONException e){
-            e.printStackTrace();
-            Toast.makeText(getContext(), "No hay conexion" + response, Toast.LENGTH_SHORT).show();
-        }
 
 
 
-
-    }
 }

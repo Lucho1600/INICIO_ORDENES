@@ -15,47 +15,97 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="7"
+            >
 
-            <SearchView
-                android:id="@+id/mio_mopsrchvwbuscaridorden"
+            <EditText
+                android:hint="Buscar por id de orden"
+                android:id="@+id/mio_txtOrdenId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:background="@drawable/outline_textinputedittext">
+
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/mio_imgbtnOrdenId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/outline_textinputedittext"
-                android:layout_width="365dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="9dp" />
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_baseline_search_24"
+                ></ImageButton>
 
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:weightSum="7"
+            >
+
             <Spinner
                 android:id="@+id/mio_mopspnordenarporestado"
                 android:background="@drawable/outline_spinner"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
                 android:spinnerMode="dropdown"
 
                 android:entries="@array/Filtro_ordenestado" />
 
+            <ImageButton
+                android:id="@+id/mio_imgbtnOrdenEstado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/outline_textinputedittext"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_baseline_search_24"
+                ></ImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="7"
+            >
+
             <Spinner
                 android:id="@+id/mio_mopspnordenarporfecha"
                 android:background="@drawable/outline_spinner"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
                 android:spinnerMode="dropdown"
                 android:text="@string/mio_varstrmisordenesprincipal9"
                 android:entries="@array/Filtro_ordenfecha" />
+
+            <ImageButton
+                android:id="@+id/mio_imgbtnOrdenFecha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/outline_textinputedittext"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_baseline_search_24"
+                ></ImageButton>
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mio_moprclvlistaproductos"
